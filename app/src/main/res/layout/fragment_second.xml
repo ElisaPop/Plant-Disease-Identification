@@ -20,8 +20,53 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@id/button_upload"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_second" />
+
+    <Button
+        android:id="@+id/button_upload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Upload"
+        app:layout_constraintBottom_toBottomOf="@id/btnTakePhoto"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_second" />
+
+
+    <Button
+        android:id="@+id/btnTakePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Take Photo"
+        app:layout_constraintBottom_toBottomOf="@id/button_take_video"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_upload" />
+
+
+    <Button
+        android:id="@+id/button_take_video"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/previous"
+        app:layout_constraintBottom_toBottomOf="@id/imageView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/btnTakePhoto" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:layout_marginTop="16dp"
+        android:src="@mipmap/ic_launcher"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_take_video"/>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
