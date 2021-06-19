@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SecondFragment">
+    tools:context=".fragments.SecondFragment">
 
     <TextView
         android:id="@+id/textview_second"
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="@id/button_upload"
+        app:layout_constraintBottom_toTopOf="@id/button_upload"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/textview_second" />
@@ -30,35 +30,34 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Upload"
-        app:layout_constraintBottom_toBottomOf="@id/btnTakePhoto"
+        app:layout_constraintBottom_toTopOf="@id/button_take_photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_second" />
 
 
     <Button
-        android:id="@+id/btnTakePhoto"
+        android:id="@+id/button_take_photo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Take Photo"
-        app:layout_constraintBottom_toBottomOf="@id/button_take_video"
+        app:layout_constraintBottom_toTopOf="@id/button_take_video"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button_upload" />
-
 
     <Button
         android:id="@+id/button_take_video"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/previous"
-        app:layout_constraintBottom_toBottomOf="@id/imageView"
+        android:text="Take Video"
+        app:layout_constraintBottom_toTopOf="@id/button_diagnose"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/btnTakePhoto" />
+        app:layout_constraintTop_toBottomOf="@id/button_take_photo" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/diagnosis_image"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:layout_marginTop="16dp"
@@ -66,7 +65,18 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_take_video"/>
+        app:layout_constraintTop_toBottomOf="@id/button_diagnose"/>
+
+    <Button
+        android:id="@+id/button_diagnose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Diagnose"
+        app:layout_constraintBottom_toBottomOf="@id/diagnosis_image"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/button_take_video" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -7,8 +7,8 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.license.FirstFragment"
-        android:label="@string/first_fragment_label"
+        android:name="com.example.license.fragments.main.FirstFragment"
+        android:label="Reports List"
         tools:layout="@layout/fragment_first">
 
         <action
@@ -17,12 +17,25 @@
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
-        android:name="com.example.license.SecondFragment"
-        android:label="@string/second_fragment_label"
+        android:name="com.example.license.fragments.SecondFragment"
+        android:label="Add"
         tools:layout="@layout/fragment_second">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action_SecondFragment_to_diagnosisFragment"
+            app:destination="@id/diagnosisFragment" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/diagnosisFragment"
+        android:name="com.example.license.fragments.diagnosis.DiagnosisFragment"
+        android:label="fragment_diagnosis"
+        tools:layout="@layout/fragment_diagnosis" >
+        <action
+            android:id="@+id/action_diagnosisFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
     </fragment>
 </navigation>

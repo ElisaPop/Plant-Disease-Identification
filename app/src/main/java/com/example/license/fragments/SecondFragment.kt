@@ -1,4 +1,4 @@
-package com.example.license
+package com.example.license.fragments
 
 import android.app.Activity
 import android.content.Intent
@@ -20,6 +20,7 @@ import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import com.example.license.R
 import java.io.File
 import java.io.IOException
 
@@ -43,15 +44,26 @@ class SecondFragment : Fragment() {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
 
-        view.findViewById<Button>(R.id.btnTakePhoto).setOnClickListener{
+        view.findViewById<Button>(R.id.button_diagnose).setOnClickListener {
+            findNavController().navigate(R.id.action_SecondFragment_to_diagnosisFragment)
+        }
+
+
+        view.findViewById<Button>(R.id.button_take_photo).setOnClickListener{
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
-            photoFile = getPhotoFile(FILE_NAME)
+            photoFile = getPhotoFile(
+                FILE_NAME
+            )
 
             //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile)
-            val fileProvider = activity?.let { it1 -> FileProvider.getUriForFile(it1,"com.example.license.fileprovider", photoFile) }
+            val fileProvider = activity?.let { it1 -> FileProvider.getUriForFile(it1,"com.example.license.fileprovider",
+                photoFile
+            ) }
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
             if(activity?.packageManager?.let { it1 -> takePictureIntent.resolveActivity(it1) } != null){
-                startActivityForResult(takePictureIntent, REQUEST_CODE)
+                startActivityForResult(takePictureIntent,
+                    REQUEST_CODE
+                )
             } else {
                 Toast.makeText(activity, "Unable to open camera", Toast.LENGTH_SHORT).show()
             }
@@ -68,7 +80,7 @@ class SecondFragment : Fragment() {
         if(requestCode == REQUEST_CODE && resultCode == Activity.RESULT_OK){
 //            val takenImage = data?.extras?.get("data") as Bitmap
             val takenImage = BitmapFactory.decodeFile(photoFile.absolutePath)
-            val imageView = view?.findViewById<ImageView>(R.id.imageView)
+            val imageView = view?.findViewById<ImageView>(R.id.diagnosis_image)
             val finalImage = rotateImage(takenImage)
             imageView?.setImageBitmap(finalImage)
         }
