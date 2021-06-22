@@ -14,11 +14,14 @@
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
             app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action_FirstFragment_to_inspectFragment"
+            app:destination="@id/inspectFragment" />
     </fragment>
     <fragment
         android:id="@+id/SecondFragment"
         android:name="com.example.license.fragments.SecondFragment"
-        android:label="Add"
+        android:label="Create Report"
         tools:layout="@layout/fragment_second">
 
         <action
@@ -26,16 +29,32 @@
             app:destination="@id/FirstFragment" />
         <action
             android:id="@+id/action_SecondFragment_to_diagnosisFragment"
-            app:destination="@id/diagnosisFragment" />
+            app:destination="@id/diagnosisFragment">
+            <argument
+                android:name="imgPath"
+                app:argType="string" />
+        </action>
 
     </fragment>
     <fragment
         android:id="@+id/diagnosisFragment"
         android:name="com.example.license.fragments.diagnosis.DiagnosisFragment"
-        android:label="fragment_diagnosis"
-        tools:layout="@layout/fragment_diagnosis" >
+        android:label="Diagnosis"
+        tools:layout="@layout/fragment_diagnosis">
         <action
             android:id="@+id/action_diagnosisFragment_to_FirstFragment"
             app:destination="@id/FirstFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/inspectFragment"
+        android:name="com.example.license.fragments.InspectFragment"
+        android:label="Inspect"
+        tools:layout="@layout/fragment_inspect">
+        <action
+            android:id="@+id/action_inspectFragment_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <argument
+            android:name="currentReport"
+            app:argType="com.example.license.entity.PlantReport" />
     </fragment>
 </navigation>

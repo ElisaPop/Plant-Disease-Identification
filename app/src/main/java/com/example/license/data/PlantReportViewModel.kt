@@ -4,6 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.example.license.entity.PlantReport
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -21,6 +22,12 @@ class PlantReportViewModel(application: Application): AndroidViewModel(applicati
     fun addPlantReport(plantReport: PlantReport){
         viewModelScope.launch(Dispatchers.IO) {
             repository.addPlantReport(plantReport)
+        }
+    }
+
+    fun deletePlantReport(plantReport: PlantReport){
+        viewModelScope.launch(Dispatchers.IO) {
+            repository.deletePlantReport(plantReport)
         }
     }
 

@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import com.example.license.entity.PlantReport
+import com.example.license.entity.PlantReportDao
 
 @Database(entities = [PlantReport::class], version = 1, exportSchema = false)
 abstract class PlantReportDatabase: RoomDatabase() {

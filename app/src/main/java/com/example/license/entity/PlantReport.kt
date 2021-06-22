@@ -1,8 +1,11 @@
-package com.example.license.data
+package com.example.license.entity
 
+import android.os.Parcelable
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.android.parcel.Parcelize
 
+@Parcelize
 @Entity(tableName = "plant_report")
 data class PlantReport(
     @PrimaryKey(autoGenerate = true)
@@ -11,4 +14,4 @@ data class PlantReport(
     val imagePath: String,
     val reportDiagnosis: String,
     val dateCreated: String
-)
+) : Parcelable

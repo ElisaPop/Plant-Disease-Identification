@@ -18,6 +18,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.license.R
@@ -25,7 +26,7 @@ import java.io.File
 import java.io.IOException
 
 private const val REQUEST_CODE = 47
-private const val FILE_NAME = "Photo.jpg"
+private const val FILE_NAME = "Photo"
 private lateinit var photoFile: File
 class SecondFragment : Fragment() {
 
@@ -35,6 +36,7 @@ class SecondFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_second, container, false)
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -42,18 +44,27 @@ class SecondFragment : Fragment() {
 
         view.findViewById<Button>(R.id.button_second).setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+            showButtons(view)
         }
 
         view.findViewById<Button>(R.id.button_diagnose).setOnClickListener {
-            findNavController().navigate(R.id.action_SecondFragment_to_diagnosisFragment)
-        }
 
+            if(::photoFile.isInitialized){
+                val bundle = bundleOf("imgPath" to photoFile.toString())
+                findNavController().navigate(R.id.action_SecondFragment_to_diagnosisFragment, bundle)
+                showButtons(view)
+            } else {
+                Toast.makeText(activity, "Please take a picture", Toast.LENGTH_SHORT).show()
+            }
+            //findNavController().navigate(R.id.action_SecondFragment_to_diagnosisFragment)
+        }
 
         view.findViewById<Button>(R.id.button_take_photo).setOnClickListener{
             val takePictureIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
             photoFile = getPhotoFile(
                 FILE_NAME
             )
+            println("photofile: " + photoFile)
 
             //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile)
             val fileProvider = activity?.let { it1 -> FileProvider.getUriForFile(it1,"com.example.license.fileprovider",
@@ -61,6 +72,7 @@ class SecondFragment : Fragment() {
             ) }
             takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
             if(activity?.packageManager?.let { it1 -> takePictureIntent.resolveActivity(it1) } != null){
+                hideButtons(view)
                 startActivityForResult(takePictureIntent,
                     REQUEST_CODE
                 )
@@ -105,4 +117,17 @@ class SecondFragment : Fragment() {
         }
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     }
+
+    private fun hideButtons(view: View){
+        view.findViewById<Button>(R.id.button_upload).visibility = View.GONE
+        view.findViewById<Button>(R.id.button_take_photo).visibility = View.GONE
+        view.findViewById<Button>(R.id.button_take_video).visibility = View.GONE
+    }
+
+    private fun showButtons(view: View){
+        view.findViewById<Button>(R.id.button_upload).visibility = View.VISIBLE
+        view.findViewById<Button>(R.id.button_take_photo).visibility = View.VISIBLE
+        view.findViewById<Button>(R.id.button_take_video).visibility = View.VISIBLE
+    }
+
 }

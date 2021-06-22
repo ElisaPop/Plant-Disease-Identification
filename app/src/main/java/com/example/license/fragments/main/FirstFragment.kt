@@ -6,15 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.lifecycle.ViewModelProvider
-import androidx.lifecycle.observe
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.license.R
-import com.example.license.data.PlantReport
 import com.example.license.data.PlantReportViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import java.util.*
 
 
 class FirstFragment : Fragment() {

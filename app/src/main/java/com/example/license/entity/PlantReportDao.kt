@@ -1,10 +1,8 @@
-package com.example.license.data
+package com.example.license.entity
 
 import androidx.lifecycle.LiveData
-import androidx.room.Dao
-import androidx.room.Insert
-import androidx.room.OnConflictStrategy
-import androidx.room.Query
+import androidx.room.*
+import com.example.license.entity.PlantReport
 
 @Dao
 interface PlantReportDao {
@@ -14,5 +12,8 @@ interface PlantReportDao {
 
     @Query("SELECT * FROM plant_report ORDER BY id ASC")
     fun readAllData(): LiveData<List<PlantReport>>
+
+    @Delete
+    suspend fun deletePlantReport(plantReport: PlantReport)
 
 }

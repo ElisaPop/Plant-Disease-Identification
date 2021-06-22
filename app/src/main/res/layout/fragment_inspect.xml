@@ -4,59 +4,58 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragments.diagnosis.DiagnosisFragment">
+    tools:context=".fragments.InspectFragment">
 
-    <EditText
-        android:id="@+id/diagnosis_name"
+    <TextView
+        android:id="@+id/inspect_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
-        android:hint="Report name"
         android:paddingLeft="40dp"
         android:paddingRight="40dp"
-        app:layout_constraintBottom_toTopOf="@id/diagnosis_image"
+        app:layout_constraintBottom_toTopOf="@id/inspect_image"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-    </EditText>
+    </TextView>
 
     <ImageView
-        android:id="@+id/diagnosis_image"
+        android:id="@+id/inspect_image"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintBottom_toTopOf="@id/diagnosis_label"
+        app:layout_constraintBottom_toTopOf="@id/inspect_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diagnosis_name" />
+        app:layout_constraintTop_toBottomOf="@+id/inspect_name" />
 
     <TextView
-        android:id="@+id/diagnosis_label"
+        android:id="@+id/inspect_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Diagnosis:"
-        app:layout_constraintBottom_toTopOf="@id/diagnosis_disease"
+        android:text="Diangosis:"
+        app:layout_constraintBottom_toTopOf="@id/inspect_disease"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diagnosis_image"/>
+        app:layout_constraintTop_toBottomOf="@+id/inspect_image"/>
 
     <TextView
-        android:id="@+id/diagnosis_disease"
+        android:id="@+id/inspect_disease"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textSize = "30dp"
         android:textStyle = "bold"
         android:textColor="@color/black"
         android:text="Death"
-        app:layout_constraintBottom_toTopOf="@id/diagnosis_description"
+        app:layout_constraintBottom_toTopOf="@id/inspect_description"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diagnosis_label" />
+        app:layout_constraintTop_toBottomOf="@+id/inspect_label" />
 
     <TextView
-        android:id="@+id/diagnosis_description"
+        android:id="@+id/inspect_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
 
@@ -66,7 +65,7 @@
         app:layout_constraintBottom_toTopOf="@id/linearlayout2"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diagnosis_disease" />
+        app:layout_constraintTop_toBottomOf="@+id/inspect_disease" />
 
     <LinearLayout
         android:id="@+id/linearlayout2"
@@ -77,21 +76,21 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diagnosis_description">
+        app:layout_constraintTop_toBottomOf="@+id/inspect_description">
 
         <Button
-            android:id="@+id/button_cancel"
+            android:id="@+id/button_back"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:insetLeft="10dp"
-            android:text="Cancel" />
+            android:text="Back" />
 
         <Button
-            android:id="@+id/button_add_report_result"
+            android:id="@+id/button_delete"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:insetLeft="10dp"
-            android:text="Save" />
+            android:text="Delete" />
     </LinearLayout>
 
 

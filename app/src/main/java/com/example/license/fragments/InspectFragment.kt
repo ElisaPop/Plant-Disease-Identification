@@ -1,5 +1,6 @@
-package com.example.license.fragments.diagnosis
+package com.example.license.fragments
 
+import android.app.AlertDialog
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
@@ -15,16 +16,18 @@ import android.widget.*
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
+import androidx.navigation.fragment.navArgs
 import com.example.license.R
-import com.example.license.entity.PlantReport
 import com.example.license.data.PlantReportViewModel
-import java.io.File
+import com.example.license.entity.PlantReport
 import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
 
-class DiagnosisFragment : Fragment() {
 
+class InspectFragment : Fragment() {
+
+    private val args by navArgs<InspectFragmentArgs>()
     private lateinit var mPlantReportViewModel: PlantReportViewModel
     private lateinit var pathFile : String
 
@@ -33,61 +36,40 @@ class DiagnosisFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_diagnosis, container, false)
+        return inflater.inflate(R.layout.fragment_inspect, container, false)
     }
-
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        pathFile = arguments?.getString("imgPath").toString()
+        //pathFile = arguments?.getString("imgPath").toString()
+        pathFile = args.currentReport.imagePath
         println("imgPath: " + pathFile )
 
         //imageFile = getPhotoFile(pathFile)
         val takenImage = BitmapFactory.decodeFile(pathFile)
-        val imageView = view?.findViewById<ImageView>(R.id.diagnosis_image)
-        val finalImage = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
-            rotateImage(takenImage)
-        } else {
-            TODO("VERSION.SDK_INT < Q")
+        if(takenImage != null) {
+            val imageView = view?.findViewById<ImageView>(R.id.inspect_image)
+            val finalImage = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+                rotateImage(takenImage)
+            } else {
+                TODO("VERSION.SDK_INT < Q")
+            }
+            imageView?.setImageBitmap(finalImage)
         }
-        imageView?.setImageBitmap(finalImage)
+        view.findViewById<TextView>(R.id.inspect_name).setText(args.currentReport.name)
+        view.findViewById<TextView>(R.id.inspect_disease).setText(args.currentReport.reportDiagnosis)
 
         mPlantReportViewModel = ViewModelProvider(this).get(PlantReportViewModel::class.java)
 
-        view.findViewById<Button>(R.id.button_add_report_result).setOnClickListener {
-            insertDataToDatabase()
-            findNavController().navigate(R.id.action_diagnosisFragment_to_FirstFragment)
+        view.findViewById<Button>(R.id.button_delete).setOnClickListener {
+            deleteUser()
+            findNavController().navigate(R.id.action_inspectFragment_to_FirstFragment)
         }
 
-        view.findViewById<Button>(R.id.button_cancel).setOnClickListener {
-            findNavController().navigate(R.id.action_diagnosisFragment_to_FirstFragment)
+        view.findViewById<Button>(R.id.button_back).setOnClickListener {
+            findNavController().navigate(R.id.action_inspectFragment_to_FirstFragment)
         }
-    }
-
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun insertDataToDatabase() {
-        val name = view?.findViewById<EditText>(R.id.diagnosis_name)?.text.toString()
-        val reportDiagnosis = view?.findViewById<TextView>(R.id.diagnosis_disease)?.text.toString()
-
-        if(inputCheck(name, pathFile, reportDiagnosis)){
-            val plantReport = PlantReport(
-                0,
-                name,
-                pathFile,
-                reportDiagnosis,
-                LocalDateTime.now().format(DateTimeFormatter.ISO_DATE)
-            )
-            mPlantReportViewModel.addPlantReport(plantReport)
-            Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()
-        } else {
-            Toast.makeText(requireContext(), "Please fill out all the fields.", Toast.LENGTH_LONG).show()
-        }
-
-    }
-
-    private fun inputCheck(name: String,  imagePath: String, reportDiagnosis: String): Boolean {
-        return !(TextUtils.isEmpty(name) &&  TextUtils.isEmpty(imagePath) && TextUtils.isEmpty(reportDiagnosis))
     }
 
     @RequiresApi(Build.VERSION_CODES.Q)
@@ -108,4 +90,18 @@ class DiagnosisFragment : Fragment() {
         }
         return Bitmap.createBitmap(bitmap, 0, 0, bitmap.width, bitmap.height, matrix, true)
     }
+
+    private fun deleteUser(){
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setPositiveButton("Yes") { _, _ ->
+            mPlantReportViewModel.deletePlantReport(args.currentReport)
+        }
+        builder.setNegativeButton("No") { _, _ ->
+
+        }
+        builder.setTitle("Delete report")
+        builder.setMessage("Are you sure that you want to delete this report?")
+        builder.create().show()
+    }
+
 }
