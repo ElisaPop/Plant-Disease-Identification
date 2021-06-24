@@ -27,6 +27,7 @@ class DiagnosisFragment : Fragment() {
 
     private lateinit var mPlantReportViewModel: PlantReportViewModel
     private lateinit var pathFile : String
+    private lateinit var diagnosis : String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,15 +44,19 @@ class DiagnosisFragment : Fragment() {
         pathFile = arguments?.getString("imgPath").toString()
         println("imgPath: " + pathFile )
 
+        diagnosis =  arguments?.getString("diagnosis").toString()
+
         //imageFile = getPhotoFile(pathFile)
         val takenImage = BitmapFactory.decodeFile(pathFile)
         val imageView = view?.findViewById<ImageView>(R.id.diagnosis_image)
+        val diagnosisView = view?.findViewById<TextView>(R.id.diagnosis_disease)
         val finalImage = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             rotateImage(takenImage)
         } else {
             TODO("VERSION.SDK_INT < Q")
         }
         imageView?.setImageBitmap(finalImage)
+        diagnosisView.setText(diagnosis)
 
         mPlantReportViewModel = ViewModelProvider(this).get(PlantReportViewModel::class.java)
 
