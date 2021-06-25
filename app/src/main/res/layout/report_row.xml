@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/recycler_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
@@ -26,7 +26,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars"
-        android:adjustViewBounds="true"/>
+        android:adjustViewBounds="true"
+        app:shapeAppearanceOverlay="@style/roundImageView"/>
 
     <TextView
         android:id="@+id/recycler_disease_name"

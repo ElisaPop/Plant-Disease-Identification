@@ -7,7 +7,6 @@ import android.graphics.Matrix
 import android.media.ExifInterface
 import android.os.Build
 import android.os.Bundle
-import android.text.TextUtils
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,10 +18,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.license.R
 import com.example.license.data.PlantReportViewModel
-import com.example.license.entity.PlantReport
+import com.example.license.entity.diagnosis.Diagnosis
 import java.io.IOException
-import java.time.LocalDateTime
-import java.time.format.DateTimeFormatter
 
 
 class InspectFragment : Fragment() {
@@ -59,6 +56,7 @@ class InspectFragment : Fragment() {
         }
         view.findViewById<TextView>(R.id.inspect_name).setText(args.currentReport.name)
         view.findViewById<TextView>(R.id.inspect_disease).setText(args.currentReport.reportDiagnosis)
+        view.findViewById<TextView>(R.id.inspect_description).text = Diagnosis().diagnosisMap.get(args.currentReport.reportDiagnosis)
 
         mPlantReportViewModel = ViewModelProvider(this).get(PlantReportViewModel::class.java)
 

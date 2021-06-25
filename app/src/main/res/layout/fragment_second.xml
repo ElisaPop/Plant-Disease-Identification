@@ -6,46 +6,53 @@
     android:layout_height="match_parent"
     tools:context=".fragments.SecondFragment">
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button_upload"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Upload"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@id/button_take_photo"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/positive_button" />
 
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button_take_photo"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Take Photo"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@id/button_take_video"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_upload" />
+        app:layout_constraintTop_toBottomOf="@id/button_upload"
+        android:background="@drawable/positive_button" />
 
-    <Button
+    <android.widget.Button
         android:id="@+id/button_take_video"
         android:layout_width="150dp"
         android:layout_height="wrap_content"
         android:text="Take Video"
+        android:textColor="#FFFFFF"
         app:layout_constraintBottom_toTopOf="@id/linearlayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/button_take_photo" />
+        app:layout_constraintTop_toBottomOf="@id/button_take_photo"
+        android:background="@drawable/positive_button" />
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/diagnosis_image"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
         android:layout_height="400dp"
         android:layout_marginTop="16dp"
         app:layout_constraintBottom_toTopOf="@id/linearlayout"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/roundImageView"/>
 
     <LinearLayout
         android:id="@+id/linearlayout"
@@ -57,18 +64,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/diagnosis_image">
 
-        <Button
+        <android.widget.Button
             android:id="@+id/button_second"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:insetRight="10dp"
-            android:text="Cancel" />
-
-        <Button
+            android:text="Cancel"
+            android:textColor="#555555"
+            android:background="@drawable/negative_button" />
+        <android.widget.Space android:layout_height="10dp" android:layout_width="30dp"></android.widget.Space>
+        <android.widget.Button
             android:id="@+id/button_diagnose"
             android:layout_width="150dp"
+            android:textColor="#FFFFFF"
             android:layout_height="wrap_content"
-            android:insetLeft="10dp"
+            android:background="@drawable/positive_button"
             android:text="Ok" />
     </LinearLayout>
 

@@ -26,10 +26,11 @@
         android:layout_marginBottom="24dp"
         android:focusable="true"
         android:clickable="true"
-        android:tint="@android:color/white"
+        app:tint="@android:color/transparent"
+        app:backgroundTint="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_baseline_camera_alt_24" />
-
+        android:tintMode="src_atop"
+        android:src="@drawable/gradient_btn"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

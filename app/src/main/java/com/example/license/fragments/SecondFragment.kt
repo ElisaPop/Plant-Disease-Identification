@@ -20,7 +20,6 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.core.content.FileProvider
-import androidx.core.net.toFile
 import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
@@ -32,7 +31,6 @@ import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
 import java.lang.Float
-import java.net.URI
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import java.nio.MappedByteBuffer
@@ -108,7 +106,7 @@ class SecondFragment : Fragment() {
             photoFile = getPhotoFile(
                 FILE_NAME
             )
-            println("photofile: " + photoFile)
+            println("photofile: $photoFile")
 
             //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile)
             val fileProvider = activity?.let { it1 -> FileProvider.getUriForFile(it1,"com.example.license.fileprovider",
@@ -130,7 +128,7 @@ class SecondFragment : Fragment() {
             photoFile = getPhotoFile(
                     FILE_NAME
             )
-            println("photofile: " + photoFile)
+            println("photofile: $photoFile")
 
             //takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoFile)
             val fileProvider = activity?.let { it1 -> FileProvider.getUriForFile(it1,"com.example.license.fileprovider",
@@ -139,7 +137,6 @@ class SecondFragment : Fragment() {
 
             intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider)
             if(activity?.packageManager?.let { it1 -> intent.resolveActivity(it1) } != null){
-                hideButtons(view)
                 startActivityForResult(intent,IMAGE_PICK_CODE)
             } else {
                 Toast.makeText(activity, "Unable to open gallery", Toast.LENGTH_SHORT).show()
@@ -163,6 +160,7 @@ class SecondFragment : Fragment() {
             val finalImage = rotateImage(takenImage)
             if (finalImage != null) {
                 imgBitmap = finalImage
+                this.view?.let { hideButtons(it) }
             }
             imageView?.setImageBitmap(finalImage)
         }
@@ -190,6 +188,7 @@ class SecondFragment : Fragment() {
             val finalImage = rotateImage(takenImage)
             if (finalImage != null) {
                 imgBitmap = finalImage
+                this.view?.let { hideButtons(it) }
             }
             imageView?.setImageBitmap(finalImage)
         }
@@ -274,8 +273,10 @@ class SecondFragment : Fragment() {
         }
 
         if(recognitions.size > 0) {
-            return recognitions[0].title
-        } else return "Healthy"
+            val s = recognitions[0].title
+            val newvalue = s.substring(s.indexOf(" ") + 1)
+            return newvalue
+        } else return "Unknown"
 
     }
 

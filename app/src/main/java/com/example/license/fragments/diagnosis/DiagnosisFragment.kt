@@ -18,7 +18,7 @@ import androidx.navigation.fragment.findNavController
 import com.example.license.R
 import com.example.license.entity.PlantReport
 import com.example.license.data.PlantReportViewModel
-import java.io.File
+import com.example.license.entity.diagnosis.Diagnosis
 import java.io.IOException
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -50,13 +50,15 @@ class DiagnosisFragment : Fragment() {
         val takenImage = BitmapFactory.decodeFile(pathFile)
         val imageView = view?.findViewById<ImageView>(R.id.diagnosis_image)
         val diagnosisView = view?.findViewById<TextView>(R.id.diagnosis_disease)
+        val diagnosisDescription = view?.findViewById<TextView>(R.id.diagnosis_description)
         val finalImage = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             rotateImage(takenImage)
         } else {
             TODO("VERSION.SDK_INT < Q")
         }
         imageView?.setImageBitmap(finalImage)
-        diagnosisView.setText(diagnosis)
+        diagnosisView.text = diagnosis
+        diagnosisDescription.text = Diagnosis().diagnosisMap[diagnosis]
 
         mPlantReportViewModel = ViewModelProvider(this).get(PlantReportViewModel::class.java)
 
@@ -77,11 +79,11 @@ class DiagnosisFragment : Fragment() {
 
         if(inputCheck(name, pathFile, reportDiagnosis)){
             val plantReport = PlantReport(
-                0,
-                name,
-                pathFile,
-                reportDiagnosis,
-                LocalDateTime.now().format(DateTimeFormatter.ISO_DATE)
+                    0,
+                    name,
+                    pathFile,
+                    reportDiagnosis,
+                    LocalDateTime.now().format(DateTimeFormatter.ISO_DATE)
             )
             mPlantReportViewModel.addPlantReport(plantReport)
             Toast.makeText(requireContext(), "Successfully added!", Toast.LENGTH_LONG).show()

@@ -21,16 +21,17 @@
 
     </EditText>
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/diagnosis_image"
-        android:layout_width="match_parent"
+        android:layout_width="150dp"
         android:layout_height="200dp"
         android:src="@mipmap/ic_launcher"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintBottom_toTopOf="@id/diagnosis_label"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/diagnosis_name" />
+        app:layout_constraintTop_toBottomOf="@+id/diagnosis_name"
+        app:shapeAppearanceOverlay="@style/roundImageView"/>
 
     <TextView
         android:id="@+id/diagnosis_label"
@@ -79,19 +80,23 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/diagnosis_description">
 
-        <Button
+        <android.widget.Button
             android:id="@+id/button_cancel"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
-            android:insetLeft="10dp"
-            android:text="Cancel" />
-
-        <Button
+            android:textColor="#555555"
+            android:text="Cancel"
+            android:background="@drawable/negative_button"
+            app:backgroundTintMode="src_over"/>
+        <android.widget.Space android:layout_height="10dp" android:layout_width="30dp"></android.widget.Space>
+        <android.widget.Button
             android:id="@+id/button_add_report_result"
             android:layout_width="150dp"
             android:layout_height="wrap_content"
             android:insetLeft="10dp"
-            android:text="Save" />
+            android:text="Save"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/positive_button"/>
     </LinearLayout>
 
 
