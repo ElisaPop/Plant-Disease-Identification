@@ -1,4 +1,4 @@
-package com.example.license.fragments.diagnosis
+package com.example.license.fragments
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -48,9 +48,9 @@ class DiagnosisFragment : Fragment() {
 
         //imageFile = getPhotoFile(pathFile)
         val takenImage = BitmapFactory.decodeFile(pathFile)
-        val imageView = view?.findViewById<ImageView>(R.id.diagnosis_image)
-        val diagnosisView = view?.findViewById<TextView>(R.id.diagnosis_disease)
-        val diagnosisDescription = view?.findViewById<TextView>(R.id.diagnosis_description)
+        val imageView = view.findViewById<ImageView>(R.id.diagnosis_image)
+        val diagnosisView = view.findViewById<TextView>(R.id.diagnosis_disease)
+        val diagnosisDescription = view.findViewById<TextView>(R.id.diagnosis_description)
         val finalImage = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             rotateImage(takenImage)
         } else {

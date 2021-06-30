@@ -11,7 +11,6 @@ import android.os.Build
 import android.os.Bundle
 import android.os.Environment
 import android.provider.MediaStore
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,36 +23,22 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.license.R
-import com.example.license.model.Recognition
-import org.tensorflow.lite.Interpreter
+import com.example.license.model.Classifier
 import java.io.File
-import java.io.FileInputStream
 import java.io.IOException
 import java.io.InputStream
-import java.lang.Float
-import java.nio.ByteBuffer
-import java.nio.ByteOrder
-import java.nio.MappedByteBuffer
-import java.nio.channels.FileChannel
-import java.util.*
-import kotlin.Comparator
-import kotlin.collections.ArrayList
 
 private const val REQUEST_CODE = 47
 private const val FILE_NAME = "Photo"
 private lateinit var photoFile: File
+lateinit var imgBitmap: Bitmap
+lateinit var classifier: Classifier
 
 private const val IMAGE_PICK_CODE = 1000;
 private const val PERMISSION_CODE = 1001;
 
 class SecondFragment : Fragment() {
 
-    private val imgSize: Int = 224
-    lateinit var tflite: Interpreter
-    lateinit var labelList: List<String>
-    lateinit var imgBitmap: Bitmap
-    private val IMAGE_MEAN = 0
-    private val IMAGE_STD = 255.0f
 
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
@@ -61,15 +46,8 @@ class SecondFragment : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
 
-        try{
-            tflite = Interpreter(loadModelFile("plant_disease_model.tflite"))
-        } catch(ex: Exception){
-            ex.printStackTrace()
-        }
-
-        labelList = requireContext().assets.open("labels.txt").bufferedReader().useLines { it.toList() }
-
-        return inflater.inflate(R.layout.fragment_second, container, false)
+        classifier = Classifier("plant_disease_model.tflite","labels.txt", requireContext())
+        return inflater.inflate(R.layout.fragment_chooseimage, container, false)
 
     }
 
@@ -85,7 +63,7 @@ class SecondFragment : Fragment() {
 
             if(::photoFile.isInitialized){
                 if (::imgBitmap.isInitialized) {
-                    val result = recognizeImage(imgBitmap)
+                    val result = classifier.recognizeImage(imgBitmap)
 
                     val bundle = bundleOf("imgPath" to photoFile.toString(),
                             "diagnosis" to result)
@@ -171,12 +149,10 @@ class SecondFragment : Fragment() {
             //val s: String? = selectedImageUri?.path
             //val file = selectedImageUri?.toFile()
 
-
             var inputStream: InputStream
-            var s: String
+
             if (selectedImageUri != null) {
                 inputStream = this.requireContext().contentResolver?.openInputStream(selectedImageUri)!!
-                s = inputStream.toString()
                 photoFile.copyInputStreamToFile(inputStream)
             }
 
@@ -231,72 +207,8 @@ class SecondFragment : Fragment() {
         view.findViewById<Button>(R.id.button_take_video).visibility = View.VISIBLE
     }
 
-    private fun loadModelFile(modelPath: String): MappedByteBuffer {
-        val fileDescriptor = requireContext().assets.openFd(modelPath)
-        val inputStream = FileInputStream(fileDescriptor.fileDescriptor)
-        val fileChannel = inputStream.channel
-        val startOffset = fileDescriptor.startOffset
-        val declaredLength = fileDescriptor.declaredLength
-        return fileChannel.map(FileChannel.MapMode.READ_ONLY, startOffset, declaredLength)
-    }
 
-    fun recognizeImage(bitmap: Bitmap): String {
-        val scaledBitmap = Bitmap.createScaledBitmap(bitmap, imgSize, imgSize, false)
-        val result = Array(1) { FloatArray(labelList.size) }
-        tflite.run(convertBitmapToByteBuffer(scaledBitmap), result)
-        return getSortedResult(result)
-    }
 
-    private fun getSortedResult(labelProbArray: Array<FloatArray>): String {
-        Log.d("Classifier", "List Size:(%d, %d, %d)".format(labelProbArray.size,labelProbArray[0].size,labelList.size))
 
-        val pq = PriorityQueue(
-                3,
-                Comparator<Recognition> {
-                    (_, confidence1), (_, confidence2)
-                    -> Float.compare(confidence1, confidence2) * -1
-                })
-
-        for (i in labelList.indices) {
-            val confidence = labelProbArray[0][i]
-            if (confidence >= 0.4f) {
-                pq.add(Recognition(if (labelList.size > i) labelList[i] else "Unknown", confidence)
-                )
-            }
-        }
-        Log.d("Classifier", "pqsize:(%d)".format(pq.size))
-
-        val recognitions = ArrayList<Recognition>()
-        val recognitionsSize = pq.size
-        for (i in 0 until recognitionsSize) {
-            recognitions.add(pq.poll())
-        }
-
-        if(recognitions.size > 0) {
-            val s = recognitions[0].title
-            val newvalue = s.substring(s.indexOf(" ") + 1)
-            return newvalue
-        } else return "Unknown"
-
-    }
-
-    private fun convertBitmapToByteBuffer(bitmap: Bitmap): ByteBuffer {
-        val byteBuffer = ByteBuffer.allocateDirect(4 * imgSize * imgSize * 3) // 3 is pixel size
-        byteBuffer.order(ByteOrder.nativeOrder())
-        val intValues = IntArray(imgSize * imgSize)
-
-        bitmap.getPixels(intValues, 0, bitmap.width, 0, 0, bitmap.width, bitmap.height)
-        var pixel = 0
-        for (i in 0 until imgSize) {
-            for (j in 0 until imgSize) {
-                val `val` = intValues[pixel++]
-
-                byteBuffer.putFloat((((`val`.shr(16)  and 0xFF) - IMAGE_MEAN) / IMAGE_STD))
-                byteBuffer.putFloat((((`val`.shr(8) and 0xFF) - IMAGE_MEAN) / IMAGE_STD))
-                byteBuffer.putFloat((((`val` and 0xFF) - IMAGE_MEAN) / IMAGE_STD))
-            }
-        }
-        return byteBuffer
-    }
 
 }

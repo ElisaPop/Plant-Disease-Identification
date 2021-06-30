@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/FirstFragment"
-        android:name="com.example.license.fragments.main.FirstFragment"
+        android:name="com.example.license.fragments.recyclerlist.RecyclerViewFragment"
         android:label="Reports List"
-        tools:layout="@layout/fragment_first">
+        tools:layout="@layout/fragment_recyclerview">
 
         <action
             android:id="@+id/action_FirstFragment_to_SecondFragment"
@@ -22,7 +22,7 @@
         android:id="@+id/SecondFragment"
         android:name="com.example.license.fragments.SecondFragment"
         android:label="Create Report"
-        tools:layout="@layout/fragment_second">
+        tools:layout="@layout/fragment_chooseimage">
 
         <action
             android:id="@+id/action_SecondFragment_to_FirstFragment"
@@ -38,7 +38,7 @@
     </fragment>
     <fragment
         android:id="@+id/diagnosisFragment"
-        android:name="com.example.license.fragments.diagnosis.DiagnosisFragment"
+        android:name="com.example.license.fragments.DiagnosisFragment"
         android:label="Diagnosis"
         tools:layout="@layout/fragment_diagnosis">
         <action

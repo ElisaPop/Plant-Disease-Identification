@@ -1,4 +1,4 @@
-package com.example.license.fragments.main
+package com.example.license.fragments.recyclerlist
 
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
@@ -80,7 +80,7 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
         holder.bindData(currentReport)
 
         holder.itemView.findViewById<ConstraintLayout>(R.id.rowReport).setOnClickListener{
-            val action = FirstFragmentDirections.actionFirstFragmentToInspectFragment(currentReport)
+            val action = RecyclerViewFragmentDirections.actionFirstFragmentToInspectFragment(currentReport)
             holder.itemView.findNavController().navigate(action)
         }
     }

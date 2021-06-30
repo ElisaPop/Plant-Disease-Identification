@@ -1,4 +1,4 @@
-package com.example.license.fragments.main
+package com.example.license.fragments.recyclerlist
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -14,7 +14,7 @@ import com.example.license.data.PlantReportViewModel
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 
-class FirstFragment : Fragment() {
+class RecyclerViewFragment : Fragment() {
 
     private lateinit var mPlantReportViewModel: PlantReportViewModel
 
@@ -23,7 +23,7 @@ class FirstFragment : Fragment() {
             savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_first, container, false)
+        val view = inflater.inflate(R.layout.fragment_recyclerview, container, false)
 
         // Recycler View
         val adapter = ListAdapter()
@@ -41,9 +41,7 @@ class FirstFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
-
-        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { view ->
+        view.findViewById<FloatingActionButton>(R.id.fab).setOnClickListener { _ ->
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
     }

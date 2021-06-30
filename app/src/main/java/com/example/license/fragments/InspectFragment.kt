@@ -46,7 +46,7 @@ class InspectFragment : Fragment() {
         //imageFile = getPhotoFile(pathFile)
         val takenImage = BitmapFactory.decodeFile(pathFile)
         if(takenImage != null) {
-            val imageView = view?.findViewById<ImageView>(R.id.inspect_image)
+            val imageView = view.findViewById<ImageView>(R.id.inspect_image)
             val finalImage = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
                 rotateImage(takenImage)
             } else {
