@@ -39,7 +39,7 @@ Tomato Early blight
 Tomato Healthy
 Tomato Late blight
 Tomato Leaf mold
-Tomato Mosaic virus
+Tomato Mosaic disease
 Tomato Septoria leaf spot
 Tomato Spider mites
 Tomato Target spot
