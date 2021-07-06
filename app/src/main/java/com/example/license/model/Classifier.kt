@@ -32,40 +32,26 @@ class Classifier {
         val scaledBitmap = Bitmap.createScaledBitmap(bitmap, imgSize, imgSize, false)
         val result = Array(1) { FloatArray(labelList.size) }
         tflite.run(convertBitmapToByteBuffer(scaledBitmap), result)
-        return getSortedResult(result)
-    }
 
-    private fun getSortedResult(labelProbArray: Array<FloatArray>): String {
-        Log.d("Classifier", "List Size:(%d, %d, %d)".format(labelProbArray.size,labelProbArray[0].size,labelList.size))
+        var cnt = 0
+        var maxCnt = 0
+        var max = 0.0f
 
-        val pq = PriorityQueue(
-                3,
-                Comparator<Recognition> {
-                    (_, confidence1), (_, confidence2)
-                    -> Float.compare(confidence1, confidence2) * -1
-                })
-
-        for (i in labelList.indices) {
-            val confidence = labelProbArray[0][i]
-            if (confidence >= 0.4f) {
-                pq.add(Recognition(if (labelList.size > i) labelList[i] else "Unknown", confidence)
-                )
+        for(i in result){
+            for (j in i){
+                cnt++
+                if(j > max){
+                    max = j
+                    maxCnt = cnt
+                }
             }
         }
-        Log.d("Classifier", "pqsize:(%d)".format(pq.size))
 
-        val recognitions = ArrayList<Recognition>()
-        val recognitionsSize = pq.size
-        for (i in 0 until recognitionsSize) {
-            recognitions.add(pq.poll())
-        }
-
-        if(recognitions.size > 0) {
-            val s = recognitions[0].title
+        if(max > 0.4f){
+            val s = labelList[maxCnt-1]
             val newvalue = s.substring(s.indexOf(" ") + 1)
             return newvalue
         } else return "Unknown"
-
     }
 
     private fun convertBitmapToByteBuffer(bitmap: Bitmap): ByteBuffer {

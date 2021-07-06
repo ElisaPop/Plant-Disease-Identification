@@ -22,7 +22,6 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
 
     private var plantReportList = emptyList<PlantReport>()
 
-
     class MyViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
         private var reportRef: TextView =itemView.findViewById(R.id.recycler_report_name)
         private var dateRef: TextView =itemView.findViewById(R.id.recycler_date_created)
@@ -45,7 +44,6 @@ class ListAdapter: RecyclerView.Adapter<ListAdapter.MyViewHolder>() {
                 val finalImage = rotateImage(takenImage)
                 imageRef.setImageBitmap(finalImage)
             }
-
 
             recipe = data
         }

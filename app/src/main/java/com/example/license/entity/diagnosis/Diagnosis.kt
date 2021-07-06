@@ -31,5 +31,4 @@ class Diagnosis {
             "Target spot" to "Currently, target spot is controlled primarily by applications of protectant fungicides. Note that tank-mix sprays of copper fungicides and maneb do not provide acceptable levels of target spot control.",
             "Yellow leaf curl virus" to "Currently, the most effective treatments used to control the spread of the virus are insecticides and resistant crop varieties. The effectiveness of insecticides is not optimal in tropical areas due to whitefly resistance against the insecticides; therefore, insecticides should be alternated or mixed.",
             "Unknown" to "We weren't able to accurately identify the disease. Please try a different picture")
-        get() = field
 }

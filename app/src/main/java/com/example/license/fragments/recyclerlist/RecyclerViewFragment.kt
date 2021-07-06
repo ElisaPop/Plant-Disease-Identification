@@ -31,7 +31,6 @@ class RecyclerViewFragment : Fragment() {
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-
         mPlantReportViewModel = ViewModelProvider(this).get(PlantReportViewModel::class.java)
         mPlantReportViewModel.readAllData.observe(viewLifecycleOwner, androidx.lifecycle.Observer { report -> adapter.setData(report) })
 
