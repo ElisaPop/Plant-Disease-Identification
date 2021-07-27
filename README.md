@@ -18,7 +18,12 @@ The architecture of the CNN was inspired by AlexNet, and the model was trained f
 
 ## Application
 
+![image](https://drive.google.com/uc?export=view&id=1rWU8LtlB0BEJcE0ohFy_t2RV6ImBV0mi)
+
+The application has a RecyclerView on the main screen. The second screen shows the functionality: upload image or take video/image. After intents redirect the user to external apps, the image or thumbnail (in case of video) is shown. After confirming the image, the model is being used in order to show the diagnostic.
 
 ![image](https://drive.google.com/uc?export=view&id=1YAp2mZosS4f7IGPdXOVkl27IxHOwNrBL)
+
+The feedback from the model is displayed, and the user has the possibility to save this report for future reference. The database is a local one, implemented using Room database, and the RecyclerView updates automatically whenever the data from the database is changed. The report can also be deleted.
 
 ![image](https://drive.google.com/uc?export=view&id=1ZlKs6gt-5aoWPKHcFhDvp2ZRX3htqlL1)
