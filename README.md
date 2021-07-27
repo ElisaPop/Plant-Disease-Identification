@@ -18,3 +18,7 @@ The architecture of the CNN was inspired by AlexNet, and the model was trained f
 
 ## Application
 
+
+![image](https://drive.google.com/uc?export=view&id=1YAp2mZosS4f7IGPdXOVkl27IxHOwNrBL)
+
+![image](https://drive.google.com/uc?export=view&id=1ZlKs6gt-5aoWPKHcFhDvp2ZRX3htqlL1)
